@@ -15,6 +15,7 @@
         rel="stylesheet">
 
     <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
+    <link lang='sass' rel="stylesheet" href="./static/styles/navbar.css">
     <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,9 +28,15 @@
         <div class="nav-content">
             <a href="/">
                 <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
+                    <img src="./static/img/logo.svg" alt="Logo" />
                 </div>
             </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/hobbies">Hobbies</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -51,12 +58,7 @@
                 {{ work }}
             </ul>
         </div>
-        <div class="content-body">
-          <h1>Hobbies</h1>
-          <ul id="work-list">
-            I love citibiking and finding new spots in the City (Roosevelt island the best). I also love food and will eat anything!
-          </ul>
-        </div>
+       
         <div class="content-body">
           <h1>Education</h1>
           <ul id="work-list">
