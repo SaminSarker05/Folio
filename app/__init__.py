@@ -29,3 +29,8 @@ def hobbies():
 @app.route("/education")
 def education():
     return render_template("education.html")
+
+
+@app.route("/location")
+def location():
+    return render_template("location.html")
