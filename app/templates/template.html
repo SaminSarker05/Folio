@@ -45,7 +45,12 @@
             <ul class="work-list">
                 {% for item in items %}
                   <li>{{ item.disc }}</li>
+                  <br/>
                 {% endfor %}
+
+                {% if hobbiesPage %}
+                  <p> Some pictures! </p>
+                {% endif %}
             </ul>
           </div>
     </main>

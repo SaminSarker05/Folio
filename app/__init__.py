@@ -18,9 +18,11 @@ def index():
 @app.route("/work")
 def work():
     jobs = [
-      {'disc': "I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries. At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python. Additionally, I engaged in advanced web development at Codepath WEB103, building full-stack applications with React and PostgreSQL under the mentorship of experienced engineers. At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "},
+      {'disc': "I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries."},
+      {'disc': "At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "},
+      {'disc': "At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python."}
               ]
-    return render_template("template.html", pageTitle="Work Experiences", items=jobs)
+    return render_template("template.html", pageTitle="Work Experiences", items=jobs, hobbiesPage=False)
     # work = "During my internship experiences, "
     # return render_template("work.html", work=work)
 
@@ -29,18 +31,22 @@ def work():
 def hobbies():
     hobbies = [
       {'disc': "I love citibiking and finding new spots in the City (Roosevelt Island is the best)."},
-      {'disc': "I also love food and will eat anything!"}
+      {'disc': "I also love food and will eat anything!"},
+      {'disc': "I also work out but am not consistent! However, I did do my first muscle up this week!"},
+      {'disc': "Watching movies/tv-shpws reccs: House of the Dragon, The Walking Dead"}
               ]
-    return render_template("template.html", pageTitle="Hobbies", items=hobbies)
+    
+    return render_template("template.html", pageTitle="Hobbies", items=hobbies, hobbiesPage=True)
 
 
 @app.route("/education")
 def education():
     schools = [
-      {'disc': "Stuyesant High School"},
-      {'disc': "Columbia University BS in Computer Science May 2027"}
+      {'disc': "Stuyesant High School 2019 -- 2023"},
+      {'disc': "New York University BS in Computer Science 2023 -- 2024"},
+      {'disc': "Columbia University BA in Computer Science 2024 -- 2027"},
               ]
-    return render_template("template.html", pageTitle="Education", items=schools)
+    return render_template("template.html", pageTitle="Education", items=schools, hobbiesPage=False)
 
 
 @app.route("/location")
