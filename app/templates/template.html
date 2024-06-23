@@ -41,14 +41,11 @@
     </header>
     <main>
         <div class="content-body">
-            <h1>Hobbies</h1>
+            <h1>{{ pageTitle }}</h1>
             <ul class="work-list">
-                <li>
-                    I love citibiking and finding new spots in the City (Roosevelt Island is the best).
-                </li>
-                <li>
-                    I also love food and will eat anything!
-                </li>
+                {% for item in items %}
+                  <li>{{ item.disc }}</li>
+                {% endfor %}
             </ul>
           </div>
     </main>

@@ -17,18 +17,30 @@ def index():
 
 @app.route("/work")
 def work():
-    work = "During my internship experiences, I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries. At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python. Additionally, I engaged in advanced web development at Codepath WEB103, building full-stack applications with React and PostgreSQL under the mentorship of experienced engineers. At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "
-    return render_template("work.html", work=work)
+    jobs = [
+      {'disc': "I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries. At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python. Additionally, I engaged in advanced web development at Codepath WEB103, building full-stack applications with React and PostgreSQL under the mentorship of experienced engineers. At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "},
+              ]
+    return render_template("template.html", pageTitle="Work Experiences", items=jobs)
+    # work = "During my internship experiences, "
+    # return render_template("work.html", work=work)
 
 
 @app.route("/hobbies")
 def hobbies():
-    return render_template("hobbies.html")
+    hobbies = [
+      {'disc': "I love citibiking and finding new spots in the City (Roosevelt Island is the best)."},
+      {'disc': "I also love food and will eat anything!"}
+              ]
+    return render_template("template.html", pageTitle="Hobbies", items=hobbies)
 
 
 @app.route("/education")
 def education():
-    return render_template("education.html")
+    schools = [
+      {'disc': "Stuyesant High School"},
+      {'disc': "Columbia University BS in Computer Science May 2027"}
+              ]
+    return render_template("template.html", pageTitle="Education", items=schools)
 
 
 @app.route("/location")
