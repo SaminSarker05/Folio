@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <title>{{ title }}</title>
 </head>
-
 <body>
     <header class="nav-bar">
         <div class="nav-content">
@@ -41,13 +39,23 @@
             </nav>
         </div>
     </header>
+    <main>
+        <div class="content-body">
+            <h1>{{ pageTitle }}</h1>
+            <ul class="work-list">
+                {% for item in items %}
+                  <li>{{ item.disc }}</li>
+                  <br/>
+                {% endfor %}
 
-    <div class="content-body">
-        <h1>Education</h1>
-        <ul id="work-list">
-          <li> Stuyesant High School </li>
-          <li> Columbia University BS in Computer Science May 2027 </li>
-        </ul>
-    </div>
+                {% if hobbiesPage %}
+                  <p> Some pictures! </p>
+                  <img src="./static/img/gim.png">
+                  <img src="./static/img/park.png">
+                  <img src="./static/img/food.png">
+                {% endif %}
+            </ul>
+          </div>
+    </main>
 </body>
 </html>
