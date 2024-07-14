@@ -1,6 +1,4 @@
-#!/bin/bash
-
-tmux kill-server
+#! /bin/bash
 
 cd /root/Folio
 
@@ -11,3 +9,5 @@ source folio-venv/bin/activate
 pip install -r requirements.txt
 
 tmux new-session -d -s flask 'flask run --host=0.0.0.0'
+
+sudo systemctl restart myportfolio.service
