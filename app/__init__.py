@@ -102,3 +102,10 @@ def education():
 @app.route("/location")
 def location():
     return render_template("location.html")
+
+
+# TIMELINE Post Page
+@app.route('/timeline')
+def timeline():
+  return render_template('timeline.html', title='Timeline')
+
