@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from dotenv import load_dotenv
 from peewee import *
 import datetime
+from playhouse.shortcuts import model_to_dict
 
 load_dotenv()
 app = Flask(__name__)
@@ -26,6 +27,28 @@ class TimelinePost(Model):
   
 mydb.connect()
 mydb.create_tables([TimelinePost])
+
+# POST endpoint to create a new timeline post
+@app.route("/api/timeline_post", methods=["POST"])
+def post_time_line_post():
+  name = request.json['name']
+  email = request.json['email']
+  content = request.json['content']
+  timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+  return model_to_dict(timeline_post)
+
+
+# GET endpoint to retrive all timeline posts
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+  return {
+    'timeline_posts': [
+      model_to_dict(p) for p in 
+      TimelinePost.select().order_by(TimelinePost.created_at.desc())
+    ]
+  }
+
 
 
 @app.route("/")
