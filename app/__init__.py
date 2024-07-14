@@ -107,5 +107,7 @@ def location():
 # TIMELINE Post Page
 @app.route('/timeline')
 def timeline():
-  return render_template('timeline.html', title='Timeline')
+  posts = get_time_line_post()['timeline_posts']
+  print("endpoint hit", posts)
+  return render_template('timeline.html', title='Timeline', posts=posts)
 

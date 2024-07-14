@@ -41,21 +41,42 @@
     </header>
     <main>
         <div class="content-body">
-            <h1>Timeline</h1>
-            <!-- <ul class="work-list">
-                {% for item in items %}
-                  <li>{{ item.disc }}</li>
-                  <br/>
-                {% endfor %}
+          <h1>Timeline</h1>
+          <form id="form">
+            <label>Name:</label>
+            <input name="name" type="text">
+            <label>Email:</label>
+            <input name="email" type="text">
+            <label>Content:</label>
+            <input name="content" type="text">
+            <button type="submit">Post!</button>
+          </form>
+          <div>
+            <h2>All Timeline posts</h2>
+            {% for post in posts %}
+            
+            <li>{{ post.name }}</li>
+            <li>{{ post.email }}</li>
+            <li>{{ post.content }}</li>
+            <br/>
+            {% endfor %}
 
-                {% if hobbiesPage %}
-                  <p> Some pictures! </p>
-                  <img src="./static/img/gim.png">
-                  <img src="./static/img/park.png">
-                  <img src="./static/img/food.png">
-                {% endif %}
-            </ul> -->
           </div>
+        </div>
     </main>
+    <script>
+      // adding event listener for form
+      const form = document.getElementById('form');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault()
+        const payload = new FormData(form);
+        fetch('http://127.0.0.1:5000/api/timeline_post', {
+          method: 'POST',
+          body: payload,
+        })
+        .then(res => res.json())
+      })
+
+    </script>
 </body>
 </html>
