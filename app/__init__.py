@@ -49,7 +49,12 @@ def get_time_line_post():
     ]
   }
 
-
+@app.route('/api/timeline_post/<int:post_id>', methods=["DELETE"])
+def delete_time_line_post(post_id):
+  post = TimelinePost.get(TimelinePost.id==post_id)
+  post.delete_instance()
+  return {"status": "post deleted"}
+  
 
 @app.route("/")
 def index():
