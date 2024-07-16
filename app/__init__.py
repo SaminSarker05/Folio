@@ -5,56 +5,62 @@ from peewee import *
 import datetime
 from playhouse.shortcuts import model_to_dict
 
+
 load_dotenv()
 app = Flask(__name__)
 
 # mysql connection
-mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-  user=os.getenv("MYSQL_USER"),
-  password=os.getenv("MYSQL_PASSWORD"),
-  host=os.getenv("MYSQL_HOST"),
-  port=3306
+mydb = MySQLDatabase(
+    os.getenv("MYSQL_DATABASE"),
+    user=os.getenv("MYSQL_USER"),
+    password=os.getenv("MYSQL_PASSWORD"),
+    host=os.getenv("MYSQL_HOST"),
+    port=3306,
 )
 
-class TimelinePost(Model):
-  name = CharField()
-  email = CharField()
-  content = TextField()
-  created_at = DateTimeField(default=datetime.datetime.now)
 
-  class Meta:
-    database = mydb 
-  
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = mydb
+
+
 mydb.connect()
 mydb.create_tables([TimelinePost])
+
 
 # POST endpoint to create a new timeline post
 @app.route("/api/timeline_post", methods=["POST"])
 def post_time_line_post():
-  name = request.form['name']
-  email = request.form['email']
-  content = request.form['content']
-  timeline_post = TimelinePost.create(name=name, email=email, content=content)
+    name = request.form["name"]
+    email = request.form["email"]
+    content = request.form["content"]
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
-  return model_to_dict(timeline_post)
+    return model_to_dict(timeline_post)
 
 
 # GET endpoint to retrive all timeline posts
-@app.route('/api/timeline_post', methods=['GET'])
+@app.route("/api/timeline_post", methods=["GET"])
 def get_time_line_post():
-  return {
-    'timeline_posts': [
-      model_to_dict(p) for p in 
-      TimelinePost.select().order_by(TimelinePost.created_at.desc())
-    ]
-  }
+    return {
+        "timeline_posts": [
+            model_to_dict(p)
+            for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
 
-@app.route('/api/timeline_post/<int:post_id>', methods=["DELETE"])
+
+@app.route("/api/timeline_post/<int:post_id>", methods=["DELETE"])
 def delete_time_line_post(post_id):
-  post = TimelinePost.get(TimelinePost.id==post_id)
-  post.delete_instance()
-  return {"status": "post deleted"}
-  
+    post = TimelinePost.get(TimelinePost.id == post_id)
+    post.delete_instance()
+    return {"status": "post deleted"}
+
 
 @app.route("/")
 def index():
@@ -68,11 +74,19 @@ def index():
 @app.route("/work")
 def work():
     jobs = [
-      {'disc': "I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries."},
-      {'disc': "At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "},
-      {'disc': "At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python."}
-              ]
-    return render_template("template.html", pageTitle="Work Experiences", items=jobs, hobbiesPage=False)
+        {
+            "disc": "I worked at Pullscription as a Software Engineering Intern, focusing on designing and developing RESTful APIs using Node.js, Express.js, TypeScript, and SQL queries."
+        },
+        {
+            "disc": "At Global Alliance for Medical Innovation, I utilized Python and computer vision models to analyze gait features from pose estimation video data for neurodegenerative disease diagnosis. "
+        },
+        {
+            "disc": "At Arine, I served as a Full Stack Software Engineering Intern, collaborating on a project that transformed structured JSON templates into PDFs for patient treatment plans using Python."
+        },
+    ]
+    return render_template(
+        "template.html", pageTitle="Work Experiences", items=jobs, hobbiesPage=False
+    )
     # work = "During my internship experiences, "
     # return render_template("work.html", work=work)
 
@@ -80,23 +94,33 @@ def work():
 @app.route("/hobbies")
 def hobbies():
     hobbies = [
-      {'disc': "I love citibiking and finding new spots in the City (Roosevelt Island is the best)."},
-      {'disc': "I also love food and will eat anything!"},
-      {'disc': "I also work out but am not consistent! However, I did do my first muscle up this week!"},
-      {'disc': "Watching movies/tv-shpws reccs: House of the Dragon, The Walking Dead"}
-              ]
-    
-    return render_template("template.html", pageTitle="Hobbies", items=hobbies, hobbiesPage=True)
+        {
+            "disc": "I love citibiking and finding new spots in the City (Roosevelt Island is the best)."
+        },
+        {"disc": "I also love food and will eat anything!"},
+        {
+            "disc": "I also work out but am not consistent! However, I did do my first muscle up this week!"
+        },
+        {
+            "disc": "Watching movies/tv-shpws reccs: House of the Dragon, The Walking Dead"
+        },
+    ]
+
+    return render_template(
+        "template.html", pageTitle="Hobbies", items=hobbies, hobbiesPage=True
+    )
 
 
 @app.route("/education")
 def education():
     schools = [
-      {'disc': "Stuyesant High School 2019 -- 2023"},
-      {'disc': "New York University BS in Computer Science 2023 -- 2024"},
-      {'disc': "Columbia University BA in Computer Science 2024 -- 2027"},
-              ]
-    return render_template("template.html", pageTitle="Education", items=schools, hobbiesPage=False)
+        {"disc": "Stuyesant High School 2019 -- 2023"},
+        {"disc": "New York University BS in Computer Science 2023 -- 2024"},
+        {"disc": "Columbia University BA in Computer Science 2024 -- 2027"},
+    ]
+    return render_template(
+        "template.html", pageTitle="Education", items=schools, hobbiesPage=False
+    )
 
 
 @app.route("/location")
@@ -105,9 +129,8 @@ def location():
 
 
 # TIMELINE Post Page
-@app.route('/timeline')
+@app.route("/timeline")
 def timeline():
-  posts = get_time_line_post()['timeline_posts']
-  print("endpoint hit", posts)
-  return render_template('timeline.html', title='Timeline', posts=posts)
-
+    posts = get_time_line_post()["timeline_posts"]
+    print("endpoint hit", posts)
+    return render_template("timeline.html", title="Timeline", posts=posts)
