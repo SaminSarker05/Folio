@@ -15,7 +15,11 @@ class AppTestCase(unittest.TestCase):
         assert response.status_code == 200
         html = response.get_data(as_text=True)
         assert "<title>MLH Fellow</title>" in html
-        # TODO Add more tests relating to the home page
+        assert (
+            '<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">'
+            in html
+        )
+        assert '<link rel="preconnect" href="https://fonts.gstatic.com">' in html
 
     def test_timeline(self):
         response = self.client.get("/api/timeline_post")
