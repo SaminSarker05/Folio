@@ -36,7 +36,7 @@ class AppTestCase(unittest.TestCase):
             "email": "john@example.com",
             "content": "Hello world",
         }
-        response = self.client.post("/api/timeline_post", json=testPost)
+        response = self.client.post("/api/timeline_post", data=testPost)
         assert response.status_code == 201
         response = self.client.get("/api/timeline_post")
         assert response.status_code == 200
@@ -44,6 +44,7 @@ class AppTestCase(unittest.TestCase):
         assert len(json["timeline_posts"]) > 0
 
         # Timeline page testcases
+        response = self.client.get("/timeline")
         html = response.get_data(as_text=True)
         # Timeline button in navbar
         assert '<li><a href="/timeline">Timeline</a></li>' in html
