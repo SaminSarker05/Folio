@@ -40,6 +40,8 @@ mydb.create_tables([TimelinePost])
 # POST endpoint to create a new timeline post
 @app.route("/api/timeline_post", methods=["POST"])
 def post_time_line_post():
+    if "name" not in request.form:
+        return "Invalid name", 400
     name = request.form["name"]
     email = request.form["email"]
     content = request.form["content"]
