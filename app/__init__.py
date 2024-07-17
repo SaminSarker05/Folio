@@ -42,9 +42,16 @@ mydb.create_tables([TimelinePost])
 def post_time_line_post():
     if "name" not in request.form:
         return "Invalid name", 400
+
     name = request.form["name"]
     email = request.form["email"]
     content = request.form["content"]
+
+    if "@" not in email or "." not in email:
+        return "Invalid email", 400
+    if len(content) == 0:
+        return "Invalid content", 400
+
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
     return model_to_dict(timeline_post)
