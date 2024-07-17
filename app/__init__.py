@@ -54,7 +54,7 @@ def post_time_line_post():
 
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
-    return model_to_dict(timeline_post)
+    return model_to_dict(timeline_post), 201
 
 
 # GET endpoint to retrive all timeline posts
