@@ -1,6 +1,4 @@
-FROM quay.io/centos/centos:stream9
-
-RUN dnf install -y python3.9 python3-pip
+FROM python:3.9-slim-buster
 
 WORKDIR /myportfolio
 
